@@ -5,7 +5,7 @@ using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.Objects;
-using Harmony;
+using HarmonyLib;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
@@ -27,7 +27,7 @@ namespace CombineManyRings
 
         private void OnGameLaunched(object sender, EventArgs e)
         {
-            var harmony = HarmonyInstance.Create("Stari.CombineManyRings");
+            Harmony harmony = new Harmony("Stari.CombineManyRings");
 
             harmony.Patch(
                 original: AccessTools.Method(typeof(Ring), nameof(Ring.CanCombine)),
@@ -78,7 +78,7 @@ namespace CombineManyRings
                     string key = cur.displayName;
                     if (result.TryGetValue(key, out int val))
                     {
-                        result.Add(key, val + 1);
+                        result[key] = val + 1;
                     }
                     else
                     {
